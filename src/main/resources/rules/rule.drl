@@ -1,0 +1,19 @@
+package com.echo.drools.dto
+import com.example.javaDemo.drools.domain.User
+dialect "java"
+
+rule "address eq beijing"
+    when
+        $user: User(address == "北京")
+    then
+         $user.setFlag($user.getFlag()+"北漂");
+         System.out.println($user.getName() + "是个北漂");
+    end
+
+rule "address eq shanghai"
+    when
+        $user: User(address == "上海")
+    then
+         $user.setFlag($user.getFlag()+"上漂");
+         System.out.println($user.getName() + "是个上漂");
+    end

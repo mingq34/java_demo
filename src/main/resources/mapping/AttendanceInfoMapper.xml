@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.javaDemo.easyexcel.dao.HrAttendanceInfoDao">
+
+	<sql id="Base_Column_List">
+		id,yearmonth,pernr,name,org_4,org_5,org_6,position,entry_date,end_date,salary_beg,salary_end,salary_num,personal_leave_days,sick_leave_days,absenteeism_day,late_minute,foget_card_times,foget_card_deduction,late_munute_deduction,personal_leave_deduction,sick_leave_deduction,absenteeism_deduction,late_times,late_times_deduction,creater,create_time,marriage_days,bereavement_leave_days,maternity_leave_days,annual_leave,rest_says,mgr_fullpay_leave,mgr_nofullpay_leave,assmgr_leave,status,attendance_deduction_total
+	</sql>
+	<sql id="Base_Column_List1">
+		yearmonth,pernr,name,org_4,org_5,org_6,position,entry_date,end_date,salary_beg,salary_end,salary_num,personal_leave_days,sick_leave_days,absenteeism_day,late_minute,foget_card_times,foget_card_deduction,late_munute_deduction,personal_leave_deduction,sick_leave_deduction,absenteeism_deduction,late_times,late_times_deduction,creater,create_time,marriage_days,bereavement_leave_days,maternity_leave_days,annual_leave,rest_says,mgr_fullpay_leave,mgr_nofullpay_leave,assmgr_leave,status,attendance_deduction_total
+	</sql>
+
+
+	<insert id="save" parameterType="com.example.javaDemo.easyexcel.domain.AttendanceInfo">
+		insert into hr_attendance_info ( <include refid="Base_Column_List1" /> )
+		values
+		<foreach collection="hrAttendanceInfos" item="item" index="index" separator="," >
+			(
+				#{item.yearmonth},
+				#{item.pernr},
+				#{item.name},
+				#{item.org4},
+				#{item.org5},
+				#{item.org6},
+				#{item.position},
+				#{item.entryDate},
+				#{item.endDate},
+				#{item.salaryBeg},
+				#{item.salaryEnd},
+				#{item.salaryNum},
+				#{item.personalLeaveDays},
+				#{item.sickLeaveDays},
+				#{item.absenteeismDay},
+				#{item.lateMinute},
+				#{item.fogetCardTimes},
+				#{item.fogetCardDeduction},
+				#{item.lateMunuteDeduction},
+				#{item.personalLeaveDeduction},
+				#{item.sickLeaveDeduction},
+				#{item.absenteeismDeduction},
+				#{item.lateTimes},
+				#{item.lateTimesDeduction},
+				#{item.creater},
+				#{item.createTime},
+				#{item.marriageDays},
+				#{item.bereavementLeaveDays},
+				#{item.maternityLeaveDays},
+				#{item.annualLeave},
+				#{item.restSays},
+				#{item.mgrFullpayLeave},
+				#{item.mgrNofullpayLeave},
+				#{item.assmgrLeave},
+				#{item.status},
+				#{item.attendanceDeductionTotal}
+			)
+		</foreach>
+		ON DUPLICATE KEY UPDATE
+		yearmonth = values(yearmonth),
+		pernr = values(pernr),
+		name = values(name),
+		org_4 =  values(org_4),
+		org_5=  values(org_5),
+		org_6 =  values(org_6),
+		position = values(position),
+		entry_date = values(entry_date),
+		end_date = values(end_date),
+		salary_beg = values(salary_beg),
+		salary_end = values(salary_end),
+		salary_num =  values(salary_num),
+		personal_leave_days =  values(personal_leave_days),
+		sick_leave_days = values(sick_leave_days),
+		absenteeism_day = values(absenteeism_day),
+		late_minute = values(late_minute),
+		late_times = values(late_times),
+		foget_card_times = values(foget_card_times),
+		foget_card_deduction = values(foget_card_deduction),
+		late_munute_deduction = values(late_munute_deduction),
+		personal_leave_deduction = values(personal_leave_deduction),
+		sick_leave_deduction = values(sick_leave_deduction),
+		absenteeism_deduction = values(absenteeism_deduction),
+		late_times_deduction  = values(late_times_deduction),
+		marriage_days = values(marriage_days),
+		bereavement_leave_days = values(bereavement_leave_days),
+		maternity_leave_days = values(maternity_leave_days),
+		annual_leave = values(annual_leave),
+		rest_says = values(rest_says),
+		mgr_fullpay_leave= values(mgr_fullpay_leave),
+		mgr_nofullpay_leave= values(mgr_nofullpay_leave),
+		assmgr_leave= values(assmgr_leave),
+		creater = values(creater),
+		create_time = values(create_time),
+		status = values(status),
+		attendance_deduction_total = values(attendance_deduction_total)
+	</insert>
+	<select id="list" resultType="com.example.javaDemo.easyexcel.domain.AttendanceInfo">
+		select  <include refid="Base_Column_List" /> from hr_attendance_info
+		<where>
+			<if test="id != null and id != ''"> and id = #{id} </if>
+			<if test="yearmonth != null and yearmonth != ''"> and yearmonth like concat('%',#{yearmonth} ,'%')</if>
+			<if test="pernr != null and pernr != ''"> and pernr like concat('%',#{pernr} ,'%') </if>
+			<if test="name != null and name != ''"> and name like concat('%',#{name},'%')  </if>
+			<if test="org4 != null and org4 != ''"> and org_4 like concat('%', #{org4},'%') </if>
+			<if test="org5 != null and org5 != ''"> and org_5 like concat('%', #{org5},'%') </if>
+			<if test="org6 != null and org6 != ''"> and org_6 like concat('%',#{org6},'%')  </if>
+			<if test="position != null and position != ''"> and position = #{position} </if>
+			<if test="entryDate != null and entryDate != ''"> and entry_date = #{entryDate} </if>
+			<if test="endDate != null and endDate != ''"> and end_date = #{endDate} </if>
+			<if test="salaryBeg != null and salaryBeg != ''"> and salary_beg = #{salaryBeg} </if>
+			<if test="salaryEnd != null and salaryEnd != ''"> and salary_end = #{salaryEnd} </if>
+			<if test="salaryNum != null and salaryNum != ''"> and salary_num = #{salaryNum} </if>
+			<if test="personalLeaveDays != null and personalLeaveDays != ''"> and personal_leave_days = #{personalLeaveDays} </if>
+			<if test="sickLeaveDays != null and sickLeaveDays != ''"> and sick_leave_days = #{sickLeaveDays} </if>
+			<if test="absenteeismDay != null and absenteeismDay != ''"> and absenteeism_day = #{absenteeismDay} </if>
+			<if test="lateMinute != null and lateMinute != ''"> and late_minute = #{lateMinute} </if>
+			<if test="fogetCardTimes != null and fogetCardTimes != ''"> and foget_card_times = #{fogetCardTimes} </if>
+			<if test="fogetCardDeduction != null and fogetCardDeduction != ''"> and foget_card_deduction = #{fogetCardDeduction} </if>
+			<if test="lateMunuteDeduction != null and lateMunuteDeduction != ''"> and late_munute_deduction = #{lateMunuteDeduction} </if>
+			<if test="personalLeaveDeduction != null and personalLeaveDeduction != ''"> and personal_leave_deduction = #{personalLeaveDeduction} </if>
+			<if test="sickLeaveDeduction != null and sickLeaveDeduction != ''"> and sick_leave_deduction = #{sickLeaveDeduction} </if>
+			<if test="absenteeismDeduction != null and absenteeismDeduction != ''"> and absenteeism_deduction = #{absenteeismDeduction} </if>
+			<if test="lateTimes != null and lateTimes != ''"> and late_times = #{lateTimes} </if>
+			<if test="lateTimesDeduction != null and lateTimesDeduction != ''"> and late_times_deduction = #{lateTimesDeduction} </if>
+			<if test="creater != null and creater != ''"> and creater = #{creater} </if>
+			<if test="createTime != null and createTime != ''"> and create_time = #{createTime} </if>
+			<if test="marriageDays != null and marriageDays != ''"> and marriage_days = #{marriageDays} </if>
+			<if test="bereavementLeaveDays != null and bereavementLeaveDays != ''"> and bereavement_leave_days = #{bereavementLeaveDays} </if>
+			<if test="maternityLeaveDays != null and maternityLeaveDays != ''"> and maternity_leave_days = #{maternityLeaveDays} </if>
+			<if test="annualLeave != null and annualLeave != ''"> and annual_leave = #{annualLeave} </if>
+			<if test="restSays != null and restSays != ''"> and rest_says = #{restSays} </if>
+			<if test="mgrFullpayLeave != null and mgrFullpayLeave != ''"> and mgr_fullpay_leave = #{mgrFullpayLeave} </if>
+			<if test="mgrNofullpayLeave != null and mgrNofullpayLeave != ''"> and mgr_nofullpay_leave = #{mgrNofullpayLeave} </if>
+			<if test="assmgrLeave != null and assmgrLeave != ''"> and assmgr_leave = #{assmgrLeave} </if>
+			<if test="attendanceDeductionTotal != null "> and attendance_deduction_total = #{attendanceDeductionTotal} </if>
+
+		</where>
+		<choose>
+			<when test="sort != null and sort.trim() != ''">
+				order by ${sort} ${order}
+			</when>
+			<otherwise>
+				order by create_time desc
+			</otherwise>
+		</choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+</mapper>
