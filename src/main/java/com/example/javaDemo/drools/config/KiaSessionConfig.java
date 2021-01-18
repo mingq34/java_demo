@@ -1,5 +1,4 @@
 package com.example.javaDemo.drools.config;
-
 import org.kie.api.KieBase;
 import org.kie.api.KieServices;
 import org.kie.api.builder.KieBuilder;
@@ -44,7 +43,6 @@ public class KiaSessionConfig {
 
         final KieRepository kieRepository = getKieServices().getRepository();
         kieRepository.addKieModule(new KieModule() {
-            @Override
             public ReleaseId getReleaseId() {
                 return kieRepository.getDefaultReleaseId();
             }
@@ -69,5 +67,4 @@ public class KiaSessionConfig {
     public KieSession kieSession() throws IOException {
         return kieContainer().newKieSession();
     }
-
 }
