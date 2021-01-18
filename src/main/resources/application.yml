@@ -1,4 +1,6 @@
-
+server:
+  session-timeout: 1800
+  port: 8999
 spring:
   datasource:
     username: root
